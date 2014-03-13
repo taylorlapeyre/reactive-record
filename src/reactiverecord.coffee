@@ -60,7 +60,7 @@ class ReactiveRecord
       error: (xhr, status, error) =>
         console.error error
 
-  updateAttributes: (attributes, callback) ->
+  update: (attributes, callback) ->
     $.ajax
       type: 'PUT'
       data: attributes
@@ -81,7 +81,3 @@ class ReactiveRecord
         callback() if callback?
       error: (xhr, status, error) ->
         console.error error
-
-class Language extends ReactiveRecord
-  id: 'name'
-  url: 'http://localhost:3000/api/languages'

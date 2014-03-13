@@ -1,10 +1,13 @@
 #### ReactiveRecord
 
-This small coffeescript library attempts to create a way to access data from a server in a way similar to the way ActiveRecord in Rails works.
+This small coffeescript library attempts to create a way to access data from a server in a way similar to the way ActiveRecord in Rails works. It would go swimmingly with [SpacePen](https://github.com/atom/space-pen).
+
+It handles a bunch of heavy lifting for you, but it's extremely simple right now.
 
 **Requirements**
 
 - jQuery
+- Some sort of RESTful api endpoint somewhere
 
 **Usage**
 
@@ -22,7 +25,7 @@ myProduct.save ->
   console.log "Saved ", this
 
 
-myProduct.updateAttributes name: "Really Awesome", ->
+myProduct.update name: "Really Awesome", ->
   console.log this.attributes.name # => "Really Awesome"
 
 
@@ -40,7 +43,7 @@ Product.findBy type: 'winner', (products) ->
     console.log product
 
 
-Product.create name: "The Best", type: "winner" (product) ->
+Product.create name: "The Best", type: "winner", (product) ->
   console.log "#{this} was saved!"
 
 myProduct.destroy()

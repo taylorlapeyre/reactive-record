@@ -108,7 +108,7 @@ ReactiveRecord = (function() {
     });
   };
 
-  ReactiveRecord.prototype.updateAttributes = function(attributes, callback) {
+  ReactiveRecord.prototype.update = function(attributes, callback) {
     return $.ajax({
       type: 'PUT',
       data: attributes,
