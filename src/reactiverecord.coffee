@@ -1,4 +1,4 @@
-class ReactiveRecord
+class window.ReactiveRecord
 
   constructor: (attributes={}) ->
     @attributes = attributes
@@ -22,7 +22,9 @@ class ReactiveRecord
       url: "#{this::url}"
       dataType: 'json'
       success: (data) =>
-        callback(data.map(@init)) if callback?
+        if callback?
+          callback data.map (obj) =>
+            @init(obj)
       error: (xhr, status, error) ->
         console.error error
 
@@ -32,8 +34,9 @@ class ReactiveRecord
       data: attributes
       url: "#{this::url}"
       dataType: 'json'
-      success: (data) =>
-        callback(data.map(@init)) if callback?
+      if callback?
+        callback data.map (obj) =>
+          @init(obj)
       error: (xhr, status, error) ->
         console.error error
 
