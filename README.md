@@ -48,3 +48,18 @@ Product.create name: "The Best", type: "winner", (product) ->
 
 myProduct.destroy()
 ```
+
+**Contributing**
+
+Get set up:
+
+```shell
+$ cd reactiverecord
+$ npm install
+$ npm start
+```
+
+- Fork this repository
+- Clone and make your changes
+- Push to your remote fork
+- Submit a pull request with a description of why you made the change
