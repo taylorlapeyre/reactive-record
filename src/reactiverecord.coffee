@@ -84,3 +84,6 @@ class window.ReactiveRecord
         callback() if callback?
       error: (xhr, status, error) ->
         console.error error
+
+  get: (attributeName) ->
+    @attributes[attributeName]

@@ -26,7 +26,7 @@ myProduct.save ->
 
 
 myProduct.update name: "Really Awesome", ->
-  console.log this.attributes.name # => "Really Awesome"
+  console.log this.get('name') # => "Really Awesome"
 
 
 Product.find 1, (product) ->
