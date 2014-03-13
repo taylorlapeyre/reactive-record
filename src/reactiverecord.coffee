@@ -57,10 +57,10 @@ class ReactiveRecord
       success: (data) =>
         @attributes = $.merge(@attributes, data)
         callback.bind(this)() if callback?
-      error: (xhr, status, error) =>
+      error: (xhr, status, error) ->
         console.error error
 
-  update: (attributes, callback) ->
+  update: (attributes, callback) =>
     $.ajax
       type: 'PUT'
       data: attributes

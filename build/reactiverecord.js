@@ -1,10 +1,12 @@
-var ReactiveRecord;
+var ReactiveRecord,
+  __bind = function(fn, me){ return function(){ return fn.apply(me, arguments); }; };
 
 ReactiveRecord = (function() {
   function ReactiveRecord(attributes) {
     if (attributes == null) {
       attributes = {};
     }
+    this.update = __bind(this.update, this);
     this.attributes = attributes;
   }
 
@@ -100,11 +102,9 @@ ReactiveRecord = (function() {
           }
         };
       })(this),
-      error: (function(_this) {
-        return function(xhr, status, error) {
-          return console.error(error);
-        };
-      })(this)
+      error: function(xhr, status, error) {
+        return console.error(error);
+      }
     });
   };
 
