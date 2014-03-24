@@ -3,7 +3,7 @@ class window.ReactiveRecord
   constructor: (attributes={}) ->
     @attributes = attributes
 
-  @init: (attributes) ->
+  @new: (attributes) ->
     new this(attributes)
 
   @find: (id, callback) ->
@@ -12,7 +12,7 @@ class window.ReactiveRecord
       url: "#{this::url}/#{id}"
       dataType: 'json'
       success: (data) =>
-        callback(@init(data)) if callback?
+        callback(@new(data)) if callback?
       error: (xhr, status, error) ->
         console.error error
 
@@ -24,11 +24,11 @@ class window.ReactiveRecord
       success: (data) =>
         if callback?
           callback data.map (obj) =>
-            @init(obj)
+            @new(obj)
       error: (xhr, status, error) ->
         console.error error
 
-  @findBy: (attributes, callback) ->
+  @where: (attributes, callback) ->
     $.ajax
       type: 'GET'
       data: attributes
@@ -36,7 +36,7 @@ class window.ReactiveRecord
       dataType: 'json'
       if callback?
         callback data.map (obj) =>
-          @init(obj)
+          @new(obj)
       error: (xhr, status, error) ->
         console.error error
 
@@ -47,7 +47,7 @@ class window.ReactiveRecord
       url: "#{this::url}"
       dataType: 'json'
       success: (data) =>
-        callback(@init(data)) if callback?
+        callback(@new(data)) if callback?
       error: (xhr, status, error) ->
         console.error error
 

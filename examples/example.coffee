@@ -3,6 +3,7 @@ class Repo extends ReactiveRecord
   url: "https://api.github.com/users/taylorlapeyre/repos"
   idAttribute: "id"
 
+# ..and a couple views for that model
 
 class RepoList extends View
   @content: (params) ->
@@ -10,7 +11,6 @@ class RepoList extends View
       for repo in params.repos
         @subview "#{repo.get('name')}", new RepoView(repo.attributes)
 
-# ..and a view for that model
 class RepoView extends View
   @content: (params) ->
     @div class: 'repo', =>
@@ -19,6 +19,7 @@ class RepoView extends View
       @p params.description
 
 # Get some records..
+
 Repo.all (repos) ->
   view = new RepoList repos: repos
 

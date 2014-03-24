@@ -38,7 +38,7 @@ Product.all (products) ->
     console.log product
 
 
-Product.findBy type: 'winner', (products) ->
+Product.where type: 'winner', (products) ->
   for product in products
     console.log product
 
