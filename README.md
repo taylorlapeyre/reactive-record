@@ -17,7 +17,7 @@ class Product extends ReactiveRecord
   url: 'http://myserver.com/api/products'
   idAttribute: 'id'
 
-myProduct = Product.init(id: 1, name: "Awesome")
+myProduct = Product.new(id: 1, name: "Awesome")
 
 # All callbacks are optional
 
