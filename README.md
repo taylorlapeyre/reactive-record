@@ -6,8 +6,7 @@ It handles a bunch of heavy lifting for you, but it's extremely simple right now
 
 **Requirements**
 
-- jQuery
-- Some sort of RESTful api endpoint somewhere
+- Some sort of RESTful JSON api endpoint somewhere
 
 **Usage**
 

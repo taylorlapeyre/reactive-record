@@ -3,25 +3,44 @@ class window.ReactiveRecord
   constructor: (attributes={}) ->
     @attributes = attributes
 
+  @http: (options) ->
+    req = new XMLHttpRequest()
+    req.withCredentials = options.credentials
+
+    req.onreadystatechange = ->
+      if req.readyState == 4
+        if req.status == 200
+          options.ok(JSON.parse(req.responseText))
+        else
+          options.error(req)
+    req.open options.method, options.url, true
+    req.send options.data
+
+  merge: (obj1, obj2) ->
+    obj3 = {};
+    for var attrname in obj1)
+      obj3[attrname] = obj1[attrname]
+    for var attrname in obj2
+      obj3[attrname] = obj2[attrname]
+    obj3
+
   @new: (attributes) ->
     new this(attributes)
 
   @find: (id, callback) ->
-    $.ajax
-      type: 'GET'
+    @http
+      method: 'GET'
       url: "#{this::url}/#{id}"
-      dataType: 'json'
-      success: (data) =>
+      ok: (data) =>
         callback(@new(data)) if callback?
       error: (xhr, status, error) ->
         console.error error
 
   @all: (callback) ->
-    $.ajax
-      type: 'GET'
+    @http
+      method: 'GET'
       url: "#{this::url}"
-      dataType: 'json'
-      success: (data) =>
+      ok: (data) =>
         if callback?
           callback data.map (obj) =>
             @new(obj)
@@ -29,58 +48,54 @@ class window.ReactiveRecord
         console.error error
 
   @where: (attributes, callback) ->
-    $.ajax
-      type: 'GET'
+    @http
+      method: 'GET'
       data: attributes
       url: "#{this::url}"
-      dataType: 'json'
-      if callback?
-        callback data.map (obj) =>
-          @new(obj)
+      ok: =>
+        if callback?
+          callback data.map (obj) =>
+            @new(obj)
       error: (xhr, status, error) ->
         console.error error
 
   @create: (attributes, callback) ->
-    $.ajax
-      type: 'POST'
+    @http
+      method: 'POST'
       data: attributes
       url: "#{this::url}"
-      dataType: 'json'
-      success: (data) =>
+      ok: (data) =>
         callback(@new(data)) if callback?
       error: (xhr, status, error) ->
         console.error error
 
   save: (callback) ->
-    $.ajax
-      type: 'POST'
+    this::http
+      method: 'POST'
       data: @attributes
       url: "#{@url}/#{@attributes[@idAttribute]}"
-      dataType: 'json'
-      success: (data) =>
-        @attributes = $.merge(@attributes, data)
+      ok: (data) =>
+        @attributes = @merge(@attributes, data)
         callback.bind(this)() if callback?
       error: (xhr, status, error) ->
         console.error error
 
   update: (attributes, callback) =>
-    $.ajax
-      type: 'PUT'
+    this::http
+      method: 'PUT'
       data: attributes
       url: "#{@url}/#{@attributes[@idAttribute]}"
-      dataType: 'json'
-      success: (data) =>
-        @attributes = $.merge(@attributes, data)
+      ok: (data) =>
+        @attributes = @merge(@attributes, data)
         callback.bind(this)() if callback?
       error: (xhr, status, error) ->
         console.error error
 
   destroy: (callback) ->
-    $.ajax
-      type: 'DELETE'
+    this::http
+      method: 'DELETE'
       url: "#{@url}/#{@attributes[@idAttribute]}"
-      dataType: 'json'
-      success: (data) =>
+      ok: (data) =>
         callback() if callback?
       error: (xhr, status, error) ->
         console.error error
