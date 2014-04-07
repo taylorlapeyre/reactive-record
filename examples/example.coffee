@@ -3,13 +3,18 @@ class Repo extends ReactiveRecord
   url: "https://api.github.com/users/taylorlapeyre/repos"
   idAttribute: "id"
 
-# ..and a couple views for that model
+class PageView extends View
+  @content: (params) ->
+    @div class: 'main', =>
+      @header =>
+        @h1 "Taylor Lapeyre's Repositories on GitHub"
+        @subview 'repoList', new RepoList(params)
 
 class RepoList extends View
   @content: (params) ->
     @div class: 'repolist', =>
       for repo in params.repos
-        @subview "#{repo.get('name')}", new RepoView(repo.attributes)
+        @subview repo.get('name'), new RepoView(repo.attributes)
 
 class RepoView extends View
   @content: (params) ->
@@ -18,10 +23,6 @@ class RepoView extends View
         @h3 params.name
       @p params.description
 
-# Get some records..
-
 Repo.all (repos) ->
-  view = new RepoList repos: repos
-
-  # And slap it onto the page
+  view = new PageView repos: repos
   $('.container').append(view)
