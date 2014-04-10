@@ -52,10 +52,11 @@ myProduct.destroy()
 
 Get set up:
 
-```shell
+```bash
 $ cd reactiverecord
 $ npm install
 $ npm start
+$ open index.html
 ```
 
 - Fork this repository
